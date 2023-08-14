@@ -1,26 +1,24 @@
 name: CI
 
-
 on: [push, workflow_dispatch]
-
 
 jobs:
 
   build:
 
-
     runs-on: windows-latest
-
 
     steps:
 
     - name: Download
 
       run: Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+      run: Invoke-WebRequest http://dl.9hits.com/3.0.4/9hitsv3-win64.zip  -OutFile 9hits.zip
 
     - name: Extract
 
       run: Expand-Archive ngrok.zip
+      run: Expand-Archive 9hits.zip
 
     - name: Auth
 
@@ -39,7 +37,7 @@ jobs:
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
 
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
-
+    - run: New-Item -ItemType SymbolicLink -Path "$Home\Desktop\" -Name "9hits.lnk" -Value ".\9hits\9hits.exe"
     - name: Create Tunnel
-
+     
       run: .\ngrok\ngrok.exe tcp 3389
