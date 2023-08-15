@@ -39,7 +39,7 @@ jobs:
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
 
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
-    - run: New-Item -ItemType SymbolicLink -Path "$Home\Desktop\" -Name "9hits.lnk" -Value ".\9hits\9hits.exe"
+    - run: New-Item -ItemType SymbolicLink -Path "$Home\Desktop\" -Name "9hits.lnk" -Value "D:\a\mdgrok\mdgrok\9hits\9hitsv3-win64\9hits.exe"
     - name: Create Tunnel
      
       run: .\ngrok\ngrok.exe tcp 3389
